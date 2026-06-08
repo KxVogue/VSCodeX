@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ This file is part of VSCodeX.
+  ~
+  ~ VSCodeX is free software: you can redistribute it and/or modify it under the terms of
+  ~ the GNU General Public License as published by the Free Software Foundation, either version 3 of
+  ~ the License, or (at your option) any later version.
+  ~
+  ~ VSCodeX is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+  ~ without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with VSCodeX.
+  ~ If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<!--
+  VS Code-style completion item layout.
+
+  Structure (mirrors the screenshots):
+
+    [ icon_badge ]  item_label          item_type (right-aligned)
+                    item_desc (muted, below label)
+
+  icon_badge  – filled circle with a single uppercase letter (F, K, V, S, …)
+                tinted per CompletionItemKind in the adapter.
+  item_label  – primary symbol name, full weight.
+  item_type   – kind label ("Function", "Keyword", "Value" …) right-aligned,
+                muted color.
+  item_desc   – signature / detail line, muted, truncated with ellipsis.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="48dp"
+    android:paddingHorizontal="6dp"
+    android:paddingVertical="4dp">
+
+    <!--
+      Circular icon badge – letter inside a filled circle.
+      Background tint (the circle color) is set programmatically in the adapter
+      via backgroundTintList so it adapts to light/dark themes.
+    -->
+    <TextView
+        android:id="@+id/item_icon"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:background="@drawable/bg_completion_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--
+      Primary symbol label — left of type badge, right of icon.
+      Bold, full-contrast text.
+    -->
+    <TextView
+        android:id="@+id/item_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="6dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/item_desc"
+        app:layout_constraintEnd_toStartOf="@id/item_type"
+        app:layout_constraintStart_toEndOf="@id/item_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <!--
+      Signature / detail line — sits below the label.
+      Muted secondary text, truncated with ellipsis.
+    -->
+    <TextView
+        android:id="@+id/item_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="1dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/item_type"
+        app:layout_constraintStart_toEndOf="@id/item_icon"
+        app:layout_constraintTop_toBottomOf="@id/item_label" />
+
+    <!--
+      Kind label ("Function", "Keyword", "Value" …) — right-aligned.
+      Same muted color as VS Code's italic type hint.
+    -->
+    <TextView
+        android:id="@+id/item_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:textSize="11sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
