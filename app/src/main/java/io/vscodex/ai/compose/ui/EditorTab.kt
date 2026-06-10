@@ -227,7 +227,9 @@ fun EditorStatusBar(
     val bg         = MaterialTheme.colorScheme.surfaceContainerLowest
     val dimText    = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f)
     val primary    = MaterialTheme.colorScheme.primary
-    val errorColor = MaterialTheme.colorScheme.error    Row(
+    val errorColor = MaterialTheme.colorScheme.error
+
+    Row(
         modifier = modifier
             .fillMaxWidth()
             .height(20.dp)
